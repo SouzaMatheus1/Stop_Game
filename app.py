@@ -10,8 +10,7 @@ def definir_parametros(quantidade_parametros, lista_parametros):
     
 def mostrar_parametros(lista_parametros, letra):
     os.system('cls')
-    for i in letra:
-        print(f"A letra será: {i}")
+    print(f"A letra será: {letra}")
     print("Os parâmetros vão ser: ")
     for i in lista_parametros:
         print(i)
@@ -23,28 +22,42 @@ def palavras_para_parametros(quantidade_parametros, dicionario, lista_parametros
 
 def definir_letra(alfabeto):
     num = random.randrange(0,28)
-    return alfabeto[num]
+    letra = alfabeto[num]
+    for i in letra:
+        letra = i
+    return letra
 
-def bot_palavra(alfabeto):
-    num = random.randrange(0, 29857)
-    palavra  = alfabeto[num]
-    for i in palavra:
-        palavra = i
-    return palavra
+def bot_palavra(todas_palavras, letra):
+    on = True
+    while on:
+        num = random.randrange(0, 29857)
+        palavra  = todas_palavras[num]
+        for i in palavra:
+            palavra = i
+        if palavra[0] == letra.upper():
+            return palavra
+        else:
+            continue
+
+def jogada_pc():
+    pass
 
 ent_parametros = int(input("Com quantos parâmetros vão ser jogados? "))
 alfabeto = pd.read_csv("alfabeto.txt", sep = ' ').values
 
 parametros = []
-stop = {}
+stop_p1 = {}
+stop_pc = {}
 
 letra = definir_letra(alfabeto)
 definir_parametros(ent_parametros, parametros)
 mostrar_parametros(parametros, letra)
-palavras_para_parametros(ent_parametros, stop, parametros, letra)
+palavras_para_parametros(ent_parametros, stop_p1, parametros, letra)
 
 csv = pd.read_csv("Lista-de-Palavras.txt", sep = ' ').values
 
-
-for i,j in stop.items():
-    print(f"{i}: {j}")
+for i,j in stop_p1.items():
+    print(f"Jogador: {i} = {j}")
+    
+for i,j in stop_pc.items():
+    print(f"PC: {i} = {j}")    
